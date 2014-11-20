@@ -15,8 +15,8 @@ initialize_additional_features;
 
 %% Run algorithm
 % Example by lazy TAs
-N = size(X_test,1);
-prices = zeros(N,1);
+
+
 
 %% Save results to a text file for submission
 dlmwrite('submit.txt',prices,'precision','%d');

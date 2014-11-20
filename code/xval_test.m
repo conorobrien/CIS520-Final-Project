@@ -1,4 +1,4 @@
-function mse = xval_test(predfun, n_parts)
+function mse = xval_test(X, Y, predfun, n_parts)
 
 load ../data/city_train.mat
 load ../data/word_train.mat
