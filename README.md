@@ -1,5 +1,6 @@
 CIS520-Final-Project
 ====================
+Submitted again, with subtracting mean before doing cvgnlmnet fitting, and added the mean after. Interestingly this did slightly worse than the original.
 
 Running svd on the uncentered data, the 3rd pc shows a separated group, which is ads from the same companies, so basically same ads but with different number for bedrooms, etc.
 
