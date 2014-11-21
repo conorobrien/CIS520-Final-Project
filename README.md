@@ -1,5 +1,7 @@
 CIS520-Final-Project
 ====================
+Used 7 fits for 7 cities, error 0.7376. Considering PCA before fitting. Lyle mentioned 40 pcs might be able to capture 90% of variance.
+
 Submitted again, with subtracting mean before doing cvgnlmnet fitting, and added the mean after. Interestingly this did slightly worse than the original.
 
 Running svd on the uncentered data, the 3rd pc shows a separated group, which is ads from the same companies, so basically same ads but with different number for bedrooms, etc.
