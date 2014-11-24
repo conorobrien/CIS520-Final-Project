@@ -35,4 +35,3 @@ end
 toc
 fprintf('Xval Err: %f \n', mean(err));
 
-% 20 bins, full sparse X, err = 
