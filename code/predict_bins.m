@@ -8,7 +8,7 @@ function [Y_pred_bins, Y_bins] = predict_bins(X, Y, X_test, n_bins)
         Y_bins(Y>=bin_price(i-1) & Y<=bin_price(i)) = i-1;
     end
 
-    svm_model = train(Y_bins,X,[,'-s 5']); %#ok<NBRAK,NOCOM>
+    svm_model = train(Y_bins,X,[,'-s 1']); %#ok<NBRAK,NOCOM>
 
     Y_pred_bins = predict(rand(length(X_test),1),X_test, svm_model);
 
