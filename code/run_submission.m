@@ -23,6 +23,7 @@ X_pca_train = [city_train X_pca(1:length(X_train),:)];
 X_pca_test = [city_test X_pca((length(X_train)+1):end,:)];
 
 [Yhat_bins, Y_bins] = predict_bins(X_pca_train, Y_train, X_pca_test, 5);
+prices = elastic_net_bins(X_pca_train, Y_train, X_pca_test, Y_bins, Yhat_bins);
 
 
 %% Save results to a text file for submission

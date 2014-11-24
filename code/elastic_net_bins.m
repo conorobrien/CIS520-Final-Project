@@ -5,7 +5,7 @@ addpath('glmnet_matlab')
 
 K = max(bins_train);
 models{K} = [];
-y_hat = zeros(size(y_train));
+y_hat = zeros(size(x_test, 1), 1);
 
 for i = 1:K
     x = x_train(bins_train == i, :);
