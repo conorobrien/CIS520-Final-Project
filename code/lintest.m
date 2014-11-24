@@ -9,7 +9,7 @@ X =[word_train bigram_train];
 Y = price_train;
 %%
 disp('PCA...')
-X_pca = spca(X, 250);
+X_pca = spca(X, 100);
 disp('done!')
 X_pca_city = [city_train X_pca];
 
