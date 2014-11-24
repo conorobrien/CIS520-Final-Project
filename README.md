@@ -3,6 +3,10 @@ CIS520-Final-Project
 Run this command in biglab if you want it in background.
 nohup matlab -nodesktop -nodisplay < file.m > result.txt &
 
+Run this to stop it: filename with .m
+nohup matlab -nosplash -nodisplay -nodesktop -r 'try; rub_submission; catch; end; quit' > output.log &
+
+
 Used alpha=0, ie, ridge regression, error 0.7316. Did cv, alpha=0 was best in cv training error, alpha=0.2 was second best. Don't know if alpha=0 is overfitting, though.
 
 Used 50 PC's from pca, error above 0.8. Then did a little cross-validation for pca till 150 pc's, with the cv training error still decreasing. It took a long time on my laptop. We definitely need to use biglab if we want to see how pca does.
