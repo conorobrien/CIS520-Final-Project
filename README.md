@@ -1,5 +1,7 @@
 CIS520-Final-Project
 ====================
+Added the first 1000 loadings. Premultiply by X (without the cities) to get the scores. I actually have 2000 loadings but the file is too big for github.
+
 Run this command in biglab if you want it in background.
 nohup matlab -nodesktop -nodisplay < file.m > result.txt &
 
