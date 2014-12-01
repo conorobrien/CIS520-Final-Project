@@ -1,5 +1,8 @@
 CIS520-Final-Project
 ====================
+Ran KNN (xvalidated) on top 400 principle components + cities. MSE = 1.75. Ran TreeBagger (xvalidated) to create an Ensemble of decesion trees (500 trees on the top 400 principle components). MSE = .7836, which was better. I tried running it with cities as well, but it crashes matlab. This may be a path worth pursuing. I've saved these models locally only (due to size constraint).
+
+
 Ran crossvalidation on PCAed data with svr and cvglmnet. Not surprisingly, using 2000 pc's would give the best error rate, but still worse than using original data, which is much faster.
 
 Added the first 1000 loadings. Premultiply by X (without the cities) to get the scores. I actually have 2000 loadings but the file is too big for github.
