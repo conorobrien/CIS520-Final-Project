@@ -1,5 +1,7 @@
 CIS520-Final-Project
 ====================
+Ran crossvalidation on PCAed data with svr and cvglmnet. Not surprisingly, using 2000 pc's would give the best error rate, but still worse than using original data, which is much faster.
+
 Added the first 1000 loadings. Premultiply by X (without the cities) to get the scores. I actually have 2000 loadings but the file is too big for github.
 
 Run this command in biglab if you want it in background.
