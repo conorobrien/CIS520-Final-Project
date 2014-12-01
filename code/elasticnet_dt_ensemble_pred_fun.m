@@ -19,10 +19,14 @@ for i = 1:7
     
     % train on the residuals
     residuals{i} = y_hat - Y{i};
-    tree_fit{i} = TreeBagger(12, full(X{i}), residuals{i}, 'method', 'regression', 'Options', tree_stats);
+    tree_fit{i} = TreeBagger(75, full(X{i}), residuals{i}, 'method', 'regression', 'Options', tree_stats);
     disp(['trained city # ', num2str(i)]);
 end
-disp('done training')
+disp('done training');
+disp('saving models');
+save('tree_fit.mat', 'tree_fit');
+save('cvglmnet_fit.mat', 'cvglmnet_fit');
+disp('done saving models');
 
 % generate prediction based on the elastic net and residual computations
 yfit = zeros(size(x_test, 1), 1);
@@ -35,4 +39,5 @@ for i = 1:7
     yfit(city_idxs) = base_fit - residual_fit;
 end
 disp('done testing')
+
 end
