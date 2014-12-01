@@ -16,10 +16,12 @@ end
 
 for i = 1:K
     x = x_test(bins_test == i, :);
-    model = models{i};
-    y_est = cvglmnetPredict(model, x);
-    y_hat(bins_test == i) = y_est;
-    disp(['Finished testing on testing bin ', num2str(i)]);
+    if ~isempty(x)
+        model = models{i};
+        y_est = cvglmnetPredict(model, x);
+        y_hat(bins_test == i) = y_est;
+        disp(['Finished testing on testing bin ', num2str(i)]);
+    end
 end
 end
 
