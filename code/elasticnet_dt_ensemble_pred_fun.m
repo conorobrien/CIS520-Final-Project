@@ -20,8 +20,10 @@ for i = 1:7
     % train on the residuals
     residuals{i} = y_hat - Y{i};
     tree_fit{i} = TreeBagger(75, full(X{i}), residuals{i}, 'method', 'regression', 'Options', tree_stats);
+    tree_fit{i} = compact(tree_fit{i});
     disp(['trained city # ', num2str(i)]);
 end
+
 disp('done training');
 disp('saving models');
 save('tree_fit.mat', 'tree_fit');
