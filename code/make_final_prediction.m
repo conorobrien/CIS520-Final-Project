@@ -1,4 +1,4 @@
-function prediction = make_final_prediction(model,x_test)
+function prediction = make_final_prediction(model,x_test,~)
 
 % Input
 % X_test : a 1xp vector representing "1" test sample.
