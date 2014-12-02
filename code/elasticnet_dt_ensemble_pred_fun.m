@@ -15,11 +15,21 @@ for i = 1:7
     X{i} = x_train(city_idxs, 8:end);
     Y{i} = y_train(city_idxs);
     cvglmnet_fit{i} = cvglmnet(X{i}, Y{i}, 'gaussian', options);
+    % saves space when saving model to disk
+    cvglmnet_fit{i}.glmnet_fit.dim = [];
+    cvglmnet_fit{i}.lambda = [];
+    cvglmnet_fit{i}.cvm = [];
+    cvglmnet_fit{i}.cvsd = [];
+    cvglmnet_fit{i}.cvup = [];
+    cvglmnet_fit{i}.cvlo = [];
+    cvglmnet_fit{i}.nzero = [];
+    cvglmnet_fit{i}.cvup = [];
+    
     y_hat = cvglmnetPredict(cvglmnet_fit{i}, X{i});
     
     % train on the residuals
     residuals{i} = y_hat - Y{i};
-    tree_fit{i} = TreeBagger(75, full(X{i}), residuals{i}, 'method', 'regression', 'Options', tree_stats);
+    tree_fit{i} = TreeBagger(1, full(X{i}), residuals{i}, 'method', 'regression', 'Options', tree_stats);
     tree_fit{i} = compact(tree_fit{i});
     disp(['trained city # ', num2str(i)]);
 end
