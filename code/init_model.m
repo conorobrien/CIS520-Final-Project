@@ -12,5 +12,5 @@ for i = 1:7
 end
 
 %% Load trees on residual
-tmp = load('tree_fit.mat');
+tmp = load('tree_fit_old.mat');
 model.tree_fit = tmp.tree_fit;
