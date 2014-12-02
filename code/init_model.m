@@ -1,5 +1,6 @@
 function model = init_model()
 
+addpath('glmnet_matlab');
 %% Load glmnet regression models
 tmp = load('cvglmnet_fit_small.mat');
 
