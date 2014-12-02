@@ -1,5 +1,11 @@
 CIS520-Final-Project
 ====================
+Using 20 trees with [city word bigram], it takes 390 seconds to finish all test data on biglab. So we don't have much room to add trees.
+
+Using 25 trees, it takes 450 seconds.
+
+Running 2-fold cv on numbers of trees on biglab, the mse does have several local minima. I ran 15-75 with increment of 10, and by now 75 seems to be the best. 85 is still running.
+
 Using just words alone with 120 trees gave slightly worse prediction accuracy, however, it is still below .68.
 
 The elastic net with decesion tree on the residual with 75 trees gives us a test error of 0.6770, which as of Dec 1, is the top of the board. I'm playing around with saving space with the cvglmnet model file.
