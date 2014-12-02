@@ -1,7 +1,7 @@
 function model = init_model()
 
 %% Load glmnet regression models
-tmp = load('glmnet_fit_small.mat');
+tmp = load('cvglmnet_fit_small.mat');
 
 model.cvglmnet_fit = tmp.cvglmnet_fit;
 
