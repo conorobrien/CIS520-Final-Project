@@ -47,8 +47,10 @@ for i = 1:1
     X_test = X(xval_part == i, :);
     Y_test = Y(xval_part == i, :);
     
-    [Yhat_bins, Y_bins] = predict_bins(X_train, Y_train, X_test, n_bins);
-    price_pred = elastic_net_bins(X_train, Y_train, X_test, Y_bins, Yhat_bins);
+%     [Yhat_bins, Y_bins] = predict_bins(X_train, Y_train, X_test, n_bins);
+%     price_pred = elastic_net_bins(X_train, Y_train, X_test, Y_bins, Yhat_bins);
+    [Yhat_bins,Yhat_bins_score, Y_bins] = predict_bins_score(X_train, Y_train, X_test, n_bins);
+    price_pred = elastic_net_bin_scores(X_train, Y_train, X_test, Y_bins, Yhat_bins_score);
     bin_err = mean(Y_bins_real(xval_part == i) ~= Yhat_bins);
     reg_err = rmse(price_train(xval_part == i), price_pred);
 end
