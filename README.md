@@ -1,5 +1,7 @@
 CIS520-Final-Project
 ====================
+Using just words alone with 120 trees gave slightly worse prediction accuracy, however, it is still below .68.
+
 The elastic net with decesion tree on the residual with 75 trees gives us a test error of 0.6770, which as of Dec 1, is the top of the board. I'm playing around with saving space with the cvglmnet model file.
 
 Ran KNN (xvalidated) on top 400 principle components + cities. MSE = 1.75. Ran TreeBagger (xvalidated) to create an Ensemble of decesion trees (500 trees on the top 400 principle components). MSE = .7836, which was better. I tried running it with cities as well, but it crashes matlab. This may be a path worth pursuing. I've saved these models locally only (due to size constraint).

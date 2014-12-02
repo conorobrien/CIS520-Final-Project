@@ -19,9 +19,9 @@ load ../data/price_train.mat
 % y_train = price_train;
 % x_test = [city_test x_test_pca];
 
-x_train = [city_train word_train bigram_train];
+x_train = [city_train word_train];
 y_train = price_train;
-x_test = [city_test word_test bigram_test];
+x_test = [city_test word_test];
 
 % if a pool is open, close it
 try
@@ -38,7 +38,7 @@ end
 
 if full_prediction == 1
     yfit = elasticnet_dt_ensemble_pred_fun(x_train, y_train, x_test);
-    %dlmwrite('submit.txt', yfit)
+    dlmwrite('submit.txt', yfit)
 end
 
 

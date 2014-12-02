@@ -17,6 +17,7 @@ for i = 1:7
     cvglmnet_fit{i} = cvglmnet(X{i}, Y{i}, 'gaussian', options);
     % saves space when saving model to disk
     cvglmnet_fit{i}.glmnet_fit.dim = [];
+    cvglmnet_fit{i}.glmnet_fit.df = [];
     cvglmnet_fit{i}.lambda = [];
     cvglmnet_fit{i}.cvm = [];
     cvglmnet_fit{i}.cvsd = [];
@@ -29,16 +30,10 @@ for i = 1:7
     
     % train on the residuals
     residuals{i} = y_hat - Y{i};
-    tree_fit{i} = TreeBagger(1, full(X{i}), residuals{i}, 'method', 'regression', 'Options', tree_stats);
+    tree_fit{i} = TreeBagger(120, full(X{i}), residuals{i}, 'method', 'regression', 'Options', tree_stats);
     tree_fit{i} = compact(tree_fit{i});
     disp(['trained city # ', num2str(i)]);
 end
-
-disp('done training');
-disp('saving models');
-save('tree_fit.mat', 'tree_fit');
-save('cvglmnet_fit.mat', 'cvglmnet_fit');
-disp('done saving models');
 
 % generate prediction based on the elastic net and residual computations
 yfit = zeros(size(x_test, 1), 1);
@@ -51,5 +46,10 @@ for i = 1:7
     yfit(city_idxs) = base_fit - residual_fit;
 end
 disp('done testing')
+
+disp('saving models');
+save('tree_fit.mat', 'tree_fit');
+save('cvglmnet_fit.mat', 'cvglmnet_fit');
+disp('done saving models');
 
 end
