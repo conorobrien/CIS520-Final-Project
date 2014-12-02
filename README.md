@@ -1,6 +1,6 @@
 CIS520-Final-Project
 ====================
-Using 20 trees with [city word bigram], it takes 390 seconds to finish all test data on biglab. So we don't have much room to add trees.
+Using 20 trees with [city word bigram], it takes 390 seconds to finish all test data on biglab. The leaderboard error is above 0.68. So we don't have much room to add trees.
 
 Using 25 trees, it takes 450 seconds.
 
