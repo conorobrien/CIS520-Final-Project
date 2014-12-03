@@ -12,6 +12,5 @@ function prediction = make_final_prediction(model,X_test,~)
 %
 % **Note: the function will only take 1 sample each time.
 
-
-
-prediction = cvglmnetPredict(model.cvglmnet_fit{(X_test(1:7)==1)}, X_test(8:end)) - predict(model.tree_fit{(X_test(1:7)==1)}, full(X_test(8:end)));
+prediction = cvglmnetPredict(model.cvglmnet_fit{(X_test(1:7)==1)}, X_test(8:end)) - ...
+    predict(model.tree_fit{(X_test(1:7)==1)}, full(X_test(8:end)));

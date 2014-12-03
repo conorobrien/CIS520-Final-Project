@@ -32,7 +32,8 @@ for i = 1:7
     
     % train on the residuals
     residuals{i} = y_hat - Y{i};
-    tree_fit{i} = TreeBagger(35, full(X{i}), residuals{i}, 'method', 'regression', 'Options', tree_stats);
+%     tree_fit{i} = TreeBagger(35, full(X{i}), residuals{i}, 'method', 'regression', 'Options', tree_stats);
+    tree_fit{i} = fitensemble(full(X{i}),residuals{i},'LSBoost',100,'Tree');
     tree_fit{i} = compact(tree_fit{i});
     disp(['trained city # ', num2str(i)]);
 end
@@ -43,7 +44,7 @@ for i = 1:7
     city_idxs = x_test(:, i) == 1;
     X{i} = x_test(city_idxs, 8:end);
 
-    base_fit = cvglmnetPredict(cvglmnet_fit{i}, X{i});
+    base_fit = cvglmnetPredict(cvglmnet_fit{i}, X{i}, 'lambda_min');
     residual_fit = predict(tree_fit{i}, full(X{i}));
     yfit(city_idxs) = base_fit - residual_fit;
 end
