@@ -1,6 +1,8 @@
 function [yfit] = elasticnet_dt_ensemble_pred_fun(x_train, y_train, x_test)
 addpath('glmnet_matlab')
 
+
+
 X{7} = [];
 Y{7} = [];
 residuals{7} = [];
@@ -30,7 +32,7 @@ for i = 1:7
     
     % train on the residuals
     residuals{i} = y_hat - Y{i};
-    tree_fit{i} = TreeBagger(120, full(X{i}), residuals{i}, 'method', 'regression', 'Options', tree_stats);
+    tree_fit{i} = TreeBagger(35, full(X{i}), residuals{i}, 'method', 'regression', 'Options', tree_stats);
     tree_fit{i} = compact(tree_fit{i});
     disp(['trained city # ', num2str(i)]);
 end
@@ -48,8 +50,12 @@ end
 disp('done testing')
 
 disp('saving models');
-save('tree_fit.mat', 'tree_fit');
-save('cvglmnet_fit.mat', 'cvglmnet_fit');
+
+for i = 1:7
+    cvglmnet_fit{i}.glmnet_fit.beta = single(cvglmnet_fit{i}.glmnet_fit.beta);
+end
+save('tree_fit_35_1se.mat', 'tree_fit');
+save('cvglmnet_fit_1se.mat', 'cvglmnet_fit');
 disp('done saving models');
 
 end

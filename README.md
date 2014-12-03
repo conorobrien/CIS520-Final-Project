@@ -1,5 +1,15 @@
 CIS520-Final-Project
 ====================
+Turned out 35 trees with lambda_1se works much better, with error 0.6781. But it's also slower. I'll train a 30 tree with 1se model, and submit again.
+
+35 trees with lambda_min, error 0.6802. We should try the 35 trees with 1se one. Submit the submit 35 1se.txt when anybody's got the time.
+
+Using 20 trees with [city word bigram], it takes 390 seconds to finish all test data on biglab. The leaderboard error is above 0.68. So we don't have much room to add trees.
+
+Using 25 trees, it takes 450 seconds. Using 1 tree, it takes 215 seconds. It seems that the tree running time is linear with number of trees, so we can use about 40 trees at most.
+
+Running 2-fold cv on numbers of trees on biglab, the mse does have several local minima. I ran 15-75 with increment of 10, and by now 75 seems to be the best. 85 is still running.
+
 Using just words alone with 120 trees gave slightly worse prediction accuracy, however, it is still below .68.
 
 The elastic net with decesion tree on the residual with 75 trees gives us a test error of 0.6770, which as of Dec 1, is the top of the board. I'm playing around with saving space with the cvglmnet model file.

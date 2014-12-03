@@ -19,9 +19,9 @@ load ../data/price_train.mat
 % y_train = price_train;
 % x_test = [city_test x_test_pca];
 
-x_train = [city_train word_train];
+x_train = [city_train word_train bigram_train];
 y_train = price_train;
-x_test = [city_test word_test];
+x_test = [city_test word_test bigram_test];
 
 % if a pool is open, close it
 try
@@ -33,7 +33,7 @@ worker_pool = parpool();
 
 if cross_val == 1
     mse = crossval('mse', x_train, y_train,'Predfun', ...
-        @elasticnet_dt_ensemble_pred_fun, 'kfold', 2)
+        @elasticnet_dt_ensemble_pred_fun, 'kfold', 2);
 end
 
 if full_prediction == 1
