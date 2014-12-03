@@ -1,5 +1,7 @@
 CIS520-Final-Project
 ====================
+Turned out 35 trees with lambda_1se works much better, with error 0.6781. But it's also slower. I'll train a 30 tree with 1se model, and submit again.
+
 35 trees with lambda_min, error 0.6802. We should try the 35 trees with 1se one. Submit the submit 35 1se.txt when anybody's got the time.
 
 Using 20 trees with [city word bigram], it takes 390 seconds to finish all test data on biglab. The leaderboard error is above 0.68. So we don't have much room to add trees.
