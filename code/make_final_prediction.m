@@ -14,4 +14,4 @@ function prediction = make_final_prediction(model,X_test,~)
 
 
 
-prediction = cvglmnetPredict(model.cvglmnet_fit{(X_test(1:7)==1)}, X_test(8:end)) - predict(model.tree_fit{(X_test(1:7)==1)}, full(X_test(8:end)));
+prediction = cvglmnetPredict(model.cvglmnet_fit{(X_test(1:7)==1)}, X_test(8:end), 'lambda_min') - predict(model.tree_fit{(X_test(1:7)==1)}, full(X_test(8:end)));
