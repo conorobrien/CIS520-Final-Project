@@ -7,6 +7,6 @@ X_test = [city_test word_test bigram_test];
 
 model = init_model();
 
-for i = 1:1000
+for i = 1:200
     make_final_prediction(model, X_test(i,:));
 end
