@@ -2,7 +2,7 @@ function model = init_model()
 
 addpath('glmnet_matlab');
 %% Load glmnet regression models
-tmp = load('cvglmnet_fit_min.mat');
+tmp = load('cvglmnet_fit_1se.mat');
 
 model.cvglmnet_fit = tmp.cvglmnet_fit;
 
@@ -13,5 +13,5 @@ for i = 1:7
 end
 
 %% Load trees on residual
-tmp = load('tree_fit_40_min.mat');
+tmp = load('tree_fit_35_1se.mat');
 model.tree_fit = tmp.tree_fit;
