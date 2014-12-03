@@ -1,5 +1,7 @@
 CIS520-Final-Project
 ====================
+35 trees with lambda_min, error 0.6802. We should try the 35 trees with 1se one. Submit the submit 35 1se.txt when anybody's got the time.
+
 Using 20 trees with [city word bigram], it takes 390 seconds to finish all test data on biglab. The leaderboard error is above 0.68. So we don't have much room to add trees.
 
 Using 25 trees, it takes 450 seconds. Using 1 tree, it takes 215 seconds. It seems that the tree running time is linear with number of trees, so we can use about 40 trees at most.
