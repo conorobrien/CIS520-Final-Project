@@ -26,7 +26,7 @@ n_preds = size(X_test,1);
 prices = zeros(n_preds,1);
 tic
 t = CTimeleft(n_preds);
-for i = 1:n_preds
+for i = 1:1000
     prices(i) = make_final_prediction(model, X_test(i,:));
     t.timeleft();
 end
