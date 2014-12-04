@@ -17,7 +17,7 @@ function yfit = model_elasticnet(x_train, y_train, x_test)
     for i = 1:7
         city_idxs = x_test(:, i) == 1;
         X{i} = x_test(city_idxs, 8:end);
-        yfit = cvglmnetPredict( fit{i}, X{i});
+        yfit(city_idxs)  = cvglmnetPredict( fit{i}, X{i});
     end
     
 end

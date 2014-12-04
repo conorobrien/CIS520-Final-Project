@@ -49,15 +49,6 @@ for i = 1:7
     residual_fit = predict( tree_fit{i}, full(X{i}));
     yfit(city_idxs) = base_fit - residual_fit;
 end
-disp('done testing')
 
-% disp('saving models');
-
-for i = 1:7
-    cvglmnet_fit{i}.glmnet_fit.beta = single(cvglmnet_fit{i}.glmnet_fit.beta);
-end
-save('tree_fit_1se_deep_35.mat', 'tree_fit');
-save('cvglmnet_fit_1se_new.mat', 'cvglmnet_fit');
-disp('done saving models');
 
 end
