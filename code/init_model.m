@@ -15,3 +15,17 @@ end
 %% Load trees on residual
 tmp = load('tree_fit_35_1se.mat');
 model.tree_fit = tmp.tree_fit;
+
+
+%% Calculate PCA coefficients
+load ../data/city_train.mat
+load ../data/city_test.mat
+load ../data/word_train.mat
+load ../data/word_test.mat
+load ../data/bigram_train.mat
+load ../data/bigram_test.mat
+
+X = [city_train word_train bigram_train;
+     city_test word_test bigram_test]; 
+[~,~,model.pca_coeff] = spca(X,100);
+

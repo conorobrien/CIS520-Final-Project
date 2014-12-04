@@ -1,7 +1,8 @@
 %% control variables
-full_prediction = 1;
-cross_val = 0;
+full_prediction = 0;
+cross_val = 1;
 
+addpath glmnet_matlab scratch libsvm
 %% CVGLMNET for different cities, then use a DT forest to fit the residual
 load ../data/city_train.mat
 load ../data/city_test.mat
@@ -23,17 +24,26 @@ x_train = [city_train word_train bigram_train];
 y_train = price_train;
 x_test = [city_test word_test bigram_test];
 
-% if a pool is open, close it
-try
-    matlabpool('close');
-catch err
-end
-
-worker_pool = parpool();
+%assign pool
+worker_pool = gcp('nocreate');
 
 if cross_val == 1
-    mse = crossval('mse', x_train, y_train,'Predfun', ...
-        @elasticnet_dt_ensemble_pred_fun, 'kfold', 2);
+   % mse = crossval('mse', x_train, y_train,'Predfun', ...
+        % @elasticnet_dt_ensemble_pred_fun, 'kfold', 10);
+   xval_part = make_xval_partition(length(y_train), 10);
+   
+   err = [0 0];
+   for i = 1:2
+       xtr = x_train(xval_part ~= 1,:);
+       xte = x_train(xval_part == 1,:);
+       ytr = y_train(xval_part ~= 1,:);
+       yte = y_train(xval_part == 1,:);
+
+       yfit = elasticnet_dt_ensemble_pred_fun(xtr, ytr, xte);
+
+       err(i) = rmse(yfit, yte)
+   end
+   
 end
 
 if full_prediction == 1
@@ -41,5 +51,7 @@ if full_prediction == 1
     dlmwrite('submit.txt', yfit)
 end
 
+beep
+beep
 
-delete(worker_pool);
+% delete(worker_pool);

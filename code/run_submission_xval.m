@@ -28,6 +28,7 @@ for i = 1:1
 
 end
 
+beep
 
 %% Save results to a text file for submission
 % dlmwrite('submit.txt',prices,'precision','%d');
