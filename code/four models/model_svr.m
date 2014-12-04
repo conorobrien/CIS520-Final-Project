@@ -14,11 +14,12 @@ function yfit =  model_svr(x_train, y_train, x_test)
     end
 
     yfit = zeros(size(x_test, 1), 1);
+    
     for i = 1:7
         city_idxs = x_test(:, i) == 1;
         X{i} = x_test(city_idxs, 8:end);
 
-        yfit = predict(zeros(size(X{i},1), 1),  X{i}, svr_fit{i}, '-q');
+        yfit(city_idxs) = predict(zeros(size(X{i},1), 1),  X{i}, svr_fit{i}, '-q');
 
     end
 

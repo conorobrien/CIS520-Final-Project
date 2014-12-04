@@ -19,7 +19,7 @@ function yfit = model_svr_pca(x_train, y_train, x_test)
     for i = 1:7
         city_idxs = x_test(:, i) == 1;
         X{i} = x_test(city_idxs, 8:end)*V;
-        yfit = predict(zeros(size(X{i},1), 1),  X{i}, svr_fit{i}, '-q');
+        yfit(city_idxs) = predict(zeros(size(X{i},1), 1),  X{i}, svr_fit{i}, '-q');
     end
 
 end
