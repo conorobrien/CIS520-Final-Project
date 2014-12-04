@@ -4,29 +4,28 @@ load ../data/word_train.mat
 load ../data/bigram_train.mat
 load ../data/price_train.mat
 
-X_raw =[city_train word_train bigram_train];
-Y_raw = price_train;
+addpath glmnet_matlab liblinear scratch libsvm
 
-xval_part = make_xval_partition(length(Y_train), 10)
+X =[city_train word_train bigram_train];
+Y = price_train;
 
-for i = 1:10
+xval_part = make_xval_partition(length(Y_train), 10);
 
-	X_train = X_raw(xval_part ~= i, :);
-	Y_train = Y_raw(xval_part ~= i, :);
-	X_test = X_raw(xval_part == i, :);
-	Y_test = Y_raw(xval_part == i, :);
+err = [];
 
-	initialize_additional_features;
+for i = 1:1
 
+	X_train = X(xval_part ~= i, :);
+	Y_train = Y(xval_part ~= i, :);
+	X_test = X(xval_part == i, :);
+	Y_test = Y(xval_part == i, :);
 	%% Run algorithm
 	% Example by lazy TAs
 
-
-	err(i) = mean(Y_pred ~= Y_test)
+    Y_hat = elasticnet_dt_ensemble_pred_fun(X_train,Y_train,X_test);
+	err(i) = rmse(Y_hat, Y_test)
 
 end
-
-
 
 
 %% Save results to a text file for submission
