@@ -2,7 +2,7 @@ function model = init_model()
 
 addpath('glmnet_matlab');
 %% Load glmnet regression models
-tmp = load('cvglmnet_fit_alt.mat');
+tmp = load('model_alt.mat');
 
 model.cvglmnet_fit = tmp.cvglmnet_fit;
 
@@ -13,10 +13,10 @@ for i = 1:7
 end
 
 %% Load trees on residual
-tmp = load('tree_fit_alt.mat');
 model.tree_fit = tmp.tree_fit;
-model.tree_fit2 = tmp.tree_fit2;
 
+%% Load Feature Index
+model.idx = logical([zeros(1,7) tmp.idx]);
 %% Calculate PCA coefficients
 % load ../data/city_train.mat
 % load ../data/city_test.mat

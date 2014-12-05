@@ -12,14 +12,6 @@ load ../data/bigram_train.mat
 load ../data/bigram_test.mat
 load ../data/price_train.mat
 
-% load loading1000.mat
-% x_train_pca = [word_train bigram_train] * V1;
-% x_test_pca = [word_test bigram_test] * V1;
-% 
-% x_train = [city_train x_train_pxa];
-% y_train = price_train;
-% x_test = [city_test x_test_pca];
-
 x_train = [city_train word_train bigram_train];
 y_train = price_train;
 x_test = [city_test word_test bigram_test];
@@ -34,16 +26,17 @@ if cross_val == 1
    
    err = [0 0];
    for i = 1:2
-       xtr = x_train(xval_part ~= 1,:);
-       xte = x_train(xval_part == 1,:);
-       ytr = y_train(xval_part ~= 1,:);
-       yte = y_train(xval_part == 1,:);
+       xtr = x_train(xval_part ~= i,:);
+       xte = x_train(xval_part == i,:);
+       ytr = y_train(xval_part ~= i,:);
+       yte = y_train(xval_part == i,:);
 
        yfit = elasticnet_dt_ensemble_pred_fun(xtr, ytr, xte);
 
        err(i) = rmse(yfit, yte)
    end
    
+   disp(mean(err));
 end
 
 if full_prediction == 1
