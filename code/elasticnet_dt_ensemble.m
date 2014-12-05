@@ -1,6 +1,6 @@
 %% control variables
-full_prediction = 0;
-cross_val = 1;
+full_prediction = 1;
+cross_val = 0;
 
 addpath glmnet_matlab scratch libsvm
 %% CVGLMNET for different cities, then use a DT forest to fit the residual

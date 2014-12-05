@@ -5,7 +5,6 @@ addpath('glmnet_matlab')
 % [~,~,pca_coeff] = svds([x_train(:,8:end); x_test(:,8:end)],200);
 
 X{7} = [];
-X_pca{7} = [];
 Y{7} = [];
 residuals{7} = [];
 residuals2{7} = [];
@@ -42,7 +41,9 @@ for i = 1:7
     tree_fit2{i} = TreeBagger(2, full(X{i}), residuals2{i}, 'method', 'regression', 'Options', tree_stats, 'minleaf', 10);
     
 %     tree_fit{i} = fitrtree(full(X{i}), residuals{i}, 'QuadraticErrorTolerance',.01);
-%     tree_fit{i} = compact(tree_fit{i});
+    tree_fit{i} = compact(tree_fit{i});
+    tree_fit2{i} = compact(tree_fit2{i});
+
 %     res_fit{i} = cvglmnet(X{i},residuals{i}, 'gaussian', options);
 %     res_fit{i} = svmtrain(residuals{i}, X{i}, '-s 3 -t 2 -q');
     disp(['trained city # ', num2str(i)]);
@@ -77,8 +78,8 @@ disp('saving models');
 for i = 1:7
     cvglmnet_fit{i}.glmnet_fit.beta = single(cvglmnet_fit{i}.glmnet_fit.beta);
 end
-save('tree_fit_35_1se.mat', 'tree_fit', 'tree_fit2');
-save('cvglmnet_fit_1se.mat', 'cvglmnet_fit');
+save('tree_fit_alt.mat', 'tree_fit', 'tree_fit2');
+save('cvglmnet_fit_alt.mat', 'cvglmnet_fit');
 disp('done saving models');
 
 end
