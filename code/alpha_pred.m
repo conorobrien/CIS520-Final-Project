@@ -31,8 +31,7 @@ for alpha = 0:0.1:1
         
         err(i) = rmse(y_hat, y_test);
     end
-    alpha_err(alpha*10+1,1) = mean(err);
-    alpha_err(alpha*10+1,2) = alpha;
+    alpha_err(end+1,1:2) = [mean(err) alpha];
 end
 
     
