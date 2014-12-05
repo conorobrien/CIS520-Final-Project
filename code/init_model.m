@@ -15,7 +15,7 @@ end
 %% Load trees on residual
 tmp = load('tree_fit_alt.mat');
 model.tree_fit = tmp.tree_fit;
-model.tree_fit2 = tmp.free_fit2;
+model.tree_fit2 = tmp.tree_fit2;
 
 %% Calculate PCA coefficients
 % load ../data/city_train.mat
