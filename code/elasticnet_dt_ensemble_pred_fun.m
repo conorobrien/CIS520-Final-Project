@@ -1,21 +1,26 @@
 function [yfit] = elasticnet_dt_ensemble_pred_fun(x_train, y_train, x_test)
 addpath('glmnet_matlab')
 
-
-
+%alpha = [0.02, 0, 0.02, 0, 0.02, 0.04,  0];
+options = glmnetSet();
+options.alpha = 0;
 X{7} = [];
 Y{7} = [];
 residuals{7} = [];
 cvglmnet_fit{7} = [];
 tree_fit{7} = [];
-options = glmnetSet();
-options.alpha = 0;
+
+
 tree_stats = statset('UseParallel', true);
 % Split data out by cities. Then, train each city individually
 for i = 1:7
+    i
     city_idxs = x_train(:, i) == 1;
     X{i} = x_train(city_idxs, 8:end);
     Y{i} = y_train(city_idxs);
+%     options = glmnetSet();
+%     options.alpha = alpha(i);
+    alpha(i)
     cvglmnet_fit{i} = cvglmnet(X{i}, Y{i}, 'gaussian', options);
     % saves space when saving model to disk
     cvglmnet_fit{i}.glmnet_fit.dim = [];
@@ -54,8 +59,8 @@ disp('saving models');
 for i = 1:7
     cvglmnet_fit{i}.glmnet_fit.beta = single(cvglmnet_fit{i}.glmnet_fit.beta);
 end
-save('tree_fit_35_1se.mat', 'tree_fit');
-save('cvglmnet_fit_1se.mat', 'cvglmnet_fit');
+save('tree_fit_35_1se_alpha.mat', 'tree_fit');
+save('cvglmnet_fit_1se_alpha.mat', 'cvglmnet_fit');
 disp('done saving models');
 
 end
