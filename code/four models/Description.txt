@@ -40,5 +40,13 @@ Testing:	Determine Determine which city a given test data is from.
 		Predict a residual estimate using the corresponding TreeBagger.
 		Add the two predictions.
 
-Usage:           Run run_models.m
-This files first loads the training and test set data. Then calls each model successively and correspondingly named variables.
+Usage:
+1.      Run run_models.m: 
+            This files first loads the training and test set data. Then calls 
+            each model successively and correspondingly named variables.
+2.      To run any of the five models (described above) independently, usage is:
+            yfit_svr = model_svr(x_train, y_train, x_test);
+            yfit_pca = model_pca(x_train, y_train, x_test);
+            yfit_kmeans = model_kmeans(x_train, y_train, x_test);
+            yfit_elasticNet = model_elasticnet(x_train, y_train, x_test);
+            yfit_ensemble = model_elasticnet_dt_ensemble(x_train, y_train, x_test);
