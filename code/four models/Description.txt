@@ -1,0 +1,44 @@
+CIS 520 Final Submission Description
+Team Déjà \mu
+
+External package used:
+Liblinear:   http://www.csie.ntu.edu.tw/~cjlin/liblinear/
+Glmnet:     http://web.stanford.edu/~hastie/glmnet_matlab/
+
+Models built:
+Discriminative method: model_svr.m
+Training: 	Divide the training data according to cities. 
+		Train a SVR model for each city, using package ‘liblinear’.
+Testing: 	Determine which city a given test data is from.
+		Predict using the corresponding SVR model.
+
+2.   Semi-supervised dimension reduction: model_pca.m
+Training: 	Use svds on training and test set, without the first 7 features. Get 50 loadings.
+		Divide the training data according to cities.
+		Train Lasso regression on PCA’ed data of each city, using package ‘glmnet’.
+Testing:	Determine which city a given test data is from.
+		Predict using corresponding Lasso model on PCA’ed data.
+
+3.   Generative method: model_kmeans.m
+Training:	Use kmeans on training and test set, with the first 7 features. Get 3 clusters.
+		Train Ridge regression on training set from each cluster, using ‘glmnet’.
+Testing:	Predict using corresponding Ridge model on test set from each cluster.
+
+4.    Own regularization method: model_elasticnet.m
+Training: 	Divide the training data according to cities. 
+		Train a elastic net model for each city, using package ‘glmnet’. Alpha = 0.2.
+Testing: 	Determine which city a given test data is from.
+		Predict using the corresponding elastic net model.
+
+5.     Ridge regression and decision tree ensemble: model_elasticnet_dt_ensemble.m
+Training:	Divide the training data according to cities. 
+		Train a ridge model for each city, using package ‘glmnet’.
+		Get the residual of the ridge model on the training set for each city.
+		Train a TreeBagger on the residual for each city.
+Testing:	Determine Determine which city a given test data is from.
+		Predict using the corresponding ridge model.
+		Predict using the corresponding TreeBagger.
+		Add the two predictions.
+
+Usage:           Run run_models.m
+This files first loads the training and test set data. Then calls each model successively and correspondingly named variables.
