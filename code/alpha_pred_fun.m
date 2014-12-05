@@ -9,7 +9,7 @@ else
 end
 
 cvglmnet_fit = cvglmnet(x_train(:,8:end), y_train, 'gaussian', options);
-yfit = cvglmnetPredict(cvglmnet_fit, x_test);
+yfit = cvglmnetPredict(cvglmnet_fit, x_test(:,8:end));
 
 disp('done testing')
 
