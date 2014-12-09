@@ -1,0 +1,5 @@
+Elastic Net / DT ensemble: 0.6781
+Elastic Net: 0.7316
+K-Means: 
+PCA w/ Elastic Net: 0.8364
+SVR: 3.4867
