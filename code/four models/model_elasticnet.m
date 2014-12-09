@@ -22,5 +22,5 @@ function yfit = model_elasticnet(x_train, y_train, x_test)
         X{i} = x_test(city_idxs, 8:end);
         yfit(city_idxs)  = cvglmnetPredict( fit{i}, X{i});
     end
-    
+    save('elastic_net_words_bigrams_by_cities.mat', 'yfit');
 end
