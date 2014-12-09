@@ -1,0 +1,16 @@
+Analysis themes:
+    1. Binning
+    2. CV on # PCA loadings kept
+    3. Predict residual
+    4. Testing random models
+    5. Testing on BIGLAB to ensure models ran in <= 10 min
+        5.a. CV on # trees
+    6. Figuring out how to compact model into <= 50 MB
+    
+Analysis structure:
+    1. What worked and what didn’t work?
+        1.a. Why not? 
+    2. What did you do to try to fix it?
+    
+Visual:
+    
