@@ -1,5 +1,7 @@
-Elastic Net / DT ensemble: 0.6781
-Elastic Net: 0.7316
-K-Means: 
-PCA w/ Elastic Net: 0.8364
-SVR: 3.4867
+Elastic Net / DT ensemble by city: 0.6781
+Elastic Net by city: 0.7316
+K-Means: 0.8084
+PCA w/ Elastic Net by city: 0.8346
+PCA w/ Elastic Net by city, words only: 0.8352
+SVR by city: 3.4867
+SVR by city, words only: 3.1001
