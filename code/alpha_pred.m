@@ -1,6 +1,6 @@
 clearvars
 
-city = 5;
+city = 4;
 
 load ../data/city_train.mat
 load ../data/city_test.mat
@@ -15,13 +15,13 @@ Y = price_train;
 
 X_city = X(X(:,city) == 1, :);
 Y_city = Y(X(:,city) == 1, :);
-xval_part = make_xval_partition(numel(Y_city),10);
+xval_part = make_xval_partition(numel(Y_city), 10);
 
 alpha_err = [];
 err = [];
 
-for alpha = 0:0.1:1
-    for i = 1:2
+for alpha = 0:0.02:.1
+    for i = 1:10
         x_train = X_city(xval_part ~= i,:);
         y_train = Y_city(xval_part ~= i);
         x_test = X_city(xval_part == i,:);
@@ -33,5 +33,7 @@ for alpha = 0:0.1:1
     end
     alpha_err(end+1,1:2) = [mean(err) alpha];
 end
+city
+alpha_err
 
     
