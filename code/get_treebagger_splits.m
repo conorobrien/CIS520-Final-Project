@@ -20,18 +20,18 @@ for c = 1:ncities
             if numel(feat) == 0
                 continue
             end
-            feat = feat(2:end);
-            feat = str2num(feat);
+            feat = str2double(feat(2:end));
             feature_cnt(feat) = feature_cnt(feat) + 1;
         end
     end
     
     % a terrible way to find the most used features for each city
-    top_feat_idxs = zeros(1, nwords_per_city);
-    for i = 1:nwords_per_city
-        [~, idx] = max(feature_cnt);
-        top_feat_idxs(i) = idx;
-        feature_cnt(idx) = -1;
-    end
-    top_features{c} = top_feat_idxs;
+%     top_feat_idxs = zeros(1, nwords_per_city);
+%     for i = 1:nwords_per_city
+%         [~, idx] = max(feature_cnt);
+%         top_feat_idxs(i) = idx;
+%         feature_cnt(idx) = -1;
+%     end
+    [~, top_feat_idxs] = sort(feature_cnt, 'descend');
+    top_features{c} = top_feat_idxs(1:nwords_per_city);
 end
