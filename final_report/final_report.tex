@@ -13,6 +13,11 @@
 \usepackage[framed]{mcode}
 \usepackage{fullpage}
 \usepackage[colorlinks=true]{hyperref}
+\usepackage{natbib}
+
+
+
+
 
 \definecolor{lightgray}{gray}{0.5}
 \setlength{\parindent}{0pt}
@@ -30,13 +35,13 @@
 
 \subsection*{Methods}
 \begin{enumerate}
-	\item \textbf{Ridge regression / DT bagged ensemble by city:} for each city, trained ridge regression and TreeBagger ensemble (35 trees) on the residual
-	\item \textbf{Ridge regression by city:} for each city, trained ridge regression
+	\item \textbf{Ridge regression / bagged DT ensemble by city:} For each city, trained ridge regression and TreeBagger ensemble (35 trees) on the residual.
+	\item \textbf{Ridge regression by city:} For each city, trained ridge regression.
 	\item \textbf{K-Means:} Used semi-supervised K-Means to cluster the data into three clusters, and trained a ridge regression model on each cluster. 
-	\item \textbf{PCA w/ Ridge regression by city:} Used the top 50 PCA components, calculated with the entire dataset of words and bigrams, and trained different  ridge regression models for each city.
-	\item \textbf{PCA w/ Ridge regression by city, words only:} Trained ridge regression models for each city using the top 50 PCA components of just the word data.
-	\item \textbf{Binning with base prediction:} For each city, trained ridge regression, which was split into 3 bins based on price predicted. The residual for each bin was then predicted using a TreeBagger ensemble (35 trees)
-	\item \textbf{SVR by city:} For each city, trained Support Vector Regression using words+bigrams.
+	\item \textbf{PCA with Ridge regression by city:} Used the top 50 PCA components, calculated with the entire dataset of words and bigrams, and trained different  ridge regression models for each city.
+	\item \textbf{PCA with Ridge regression by city, words only:} Trained ridge regression models for each city using the top 50 PCA components of just the word data.
+	\item \textbf{Binning with base prediction:} For each city, trained ridge regression, which was split into 3 bins based on price predicted. The residual for each bin was then predicted using a TreeBagger ensemble (35 trees).
+	\item \textbf{SVR by city:} For each city, trained Support Vector Regression using words and bigrams.
 	\item \textbf{SVR by city, words only:} For each city, trained Support Vector Regression using only words.
 \end{enumerate}
 
@@ -45,32 +50,32 @@
 \begin{tabular}{| l || r |}
 \hline
 \textbf{Methods}									&	\textbf{RMSE}   \\ \hline \hline
-Ridge regression / DT bagged ensemble by city:  	&	0.6781 \\ \hline
-Ridge regression by city:							&	0.7316 \\ \hline
-K-Means: 											&	0.8084 \\ \hline
-PCA w/ Ridge regression by city: 					&	0.8346 \\ \hline
-PCA w/ Ridge regression by city, words only: 		&	0.8352 \\ \hline
-SVR by city: 										&	3.4867 \\ \hline
-SVR by city, words only: 							&	3.1001 \\ \hline
-Binning with base prediction, 35 trees: 			&	0.6960 \\ \hline
+Ridge regression / bagged DT ensemble by city  	&	0.6781 \\ \hline
+Ridge regression by city							&	0.7316 \\ \hline
+K-Means  											&	0.8084 \\ \hline
+PCA with Ridge regression by city  					&	0.8346 \\ \hline
+PCA with Ridge regression by city, words only  		&	0.8352 \\ \hline
+SVR by city 										&	3.4867 \\ \hline
+SVR by city, words only							&	3.1001 \\ \hline
+Binning with base prediction, 35 tree bagged ensemble			&	0.6960 \\ \hline
 \end{tabular}
 \end{center}
 \section{Analysis}
 
-\subsection{Testing random models}
+\subsection{Testing Random Models}
 During an initial exploratory period, our time was spent testing a variety of models without thinking much about why we were choosing them. Of course, this left much to be desired. For example, running SVR gave us an RMSE of over 3, whereas K-Means (K = 3) gave us an RMSE around 0.80. We decided that we needed to be more deliberate in our choice of model, so we looked at the data using dimensionality reduction methods to see its natural clusters. This helped us learn that each city has a different distribution of words, and was critical in our decision to run separate models for each city. Doing this resulted in the largest increase in accuracy we obtained over the course of the project.
 
-\subsection{Predict residual}
+\subsection{Predicting Residual}
 We found that when we used only a single model for prediction, the best RMSE we obtained was approximately 0.73. We think that the ridge regression wasn't able to capture the full complexity of the word structure. In order to remedy this, we decided to use the latent signal contained in the residual. The best results we got were by using ridge regression to predict a base price, followed by a regression decision tree ensemble to predict the residual. By using the decision tree, we were better able to capture the nonlinearities in the data set. Furthermore, splitting out the regression and decision trees on a per city basis allowed for even higher precision.
 
 \subsection{Binning}
-By binning the data according to actual prices and then training a ridge regression on each bin, the overall performance is much better than training ridge regression for each city according to cross validation. Thus a method that could accurately predict which bin a certain observation belongs to was necessary. Accordingly we tried SVM, NB, DT and LR, but none of these worked very well. The reason was likely that the data does not follow the assumptions of those models. Since ridge regression for each city worked fairly well, we had the idea to do binning according to predicted prices from this method, but never tried it. After the project review, we implemented a method that first gets base prediction using ridge regression for each city, and uses the predicted prices to allocate observations into three bins: below 8, between 8 and 14, and above 14. Then we used TreeBagger to predict the residual. The performance is better than many of our other methods, but still worse than our final submission.
+By binning the data according to actual prices and then training a ridge regression on each bin, the overall performance is much better than training ridge regression for each city according to cross validation. Thus, a method that could accurately predict which bin a certain observation belongs to was necessary. Accordingly we tried SVM, NB, DT and LR, but none of these worked very well. The reason was likely that the data does not conform to the assumptions of those models. Since ridge regression for each city worked fairly well, we had the idea to do binning according to predicted prices from this method, but never tried it. After the project review, we implemented a method that first gets base prediction using ridge regression for each city, and uses the predicted prices to allocate observations into three bins: below 8, between 8 and 14, and above 14. Then we used TreeBagger to predict the residual. The performance is better than many of our other methods, but still worse than our final submission.
 
-\subsection{Cross validation on \# PCA loadings}
-Using PCA will reduce the size of our model, and takes less time to predict. So we tried to get the best number of loading by cross validation in ridge regression. However, the cross validation error kept decreasing until 2000 loadings. Furthermore, using 2000 loadings gives poorer results than using the original data, and the model is actually larger and prediction slower because the data is no longer sparse. One major issue with our method was that we used both the words and bigrams, while actually the bigrams may not help.
+\subsection{Cross Validation on \# PCA Loadings}
+Using PCA with a small number of loadings reduces the size of our model and overall time to predict. So we tried to get the best number of loading by cross validation in ridge regression. However, the cross validation error kept decreasing until 2000 loadings. Furthermore, using 2000 loadings gives poorer results than using the original data, and the model is actually larger and prediction slower because the data is no longer sparse. One major issue with our method was that we used both the words and bigrams, even though the bigrams may not help.
 
-\subsection{Testing on BIGLAB for speed}
-After validating our model and submitting to the leaderboard, we found that our code, while only taking a few minutes to predict all 20307 prices on our laptops, took well over ten minutes on BigLab. We experimented with a few methods to speed up our predictions, but a general optimization using the MATLAB profiler worked well.
+\subsection{Testing on BIGLAB for Speed}
+After validating our model and submitting to the leaderboard, we found that our code, while only taking a few minutes to predict all 20307 prices on our laptops, took well over ten minutes on BigLab. We experimented with a few methods to speed up our predictions, but a general optimization, identified using the MATLAB profiler, worked well.
 \subsubsection*{Original Code:}
 \begin{lstlisting}
 city = find(X_test(1:7));
@@ -93,7 +98,7 @@ By reducing the number of operations, and replacing the find with an logical ind
 Our first saved models were well above the 50MB limit, but we were able to shrink them after trying a few different methods. Initially we thought to try using a compression program, and use system calls to decompress everything during \texttt{init\_model}, but MATLAB already does a good job with compression while saving, and we were unable to get any size reduction. Eventually we switched the cvglmnet model to use single-precision floats rather than double-precision, and were able to strip out much unneeded information from our tree model by turning the TreeBagger object into a CompactTreeBagger object, which omitted everything from the TreeBagger model except the actual trees used for prediction. 
 
 \section{Visualization}
-Figure \ref{WordCloud} is a word cloud showing the most frequent words in the decision trees of the ensemble method mentioned in the first section, with larger font size reflecting higher frequencies. Figure \ref{LSI} shows the distribution of words in the decision tree, broken down by city. The words that best predict the residual from ridge regression are different for each city.
+Figure \ref{WordCloud} is a word cloud showing the most frequently used features from our decision tree ensemble models mentioned in the first section, with larger font size reflecting higher frequencies. Figure \ref{LSI} shows the distribution of words in the decision tree, broken down by city. The words that best predict the residual from ridge regression are different for each city.
 
 \begin{figure}
 	\centering
@@ -108,5 +113,10 @@ Figure \ref{WordCloud} is a word cloud showing the most frequent words in the de
 	\caption{LSI Reduction of Words Used by Decision Trees}
 	\label{LSI}
 \end{figure}
+
+\bibliographystyle{plain}
+\bibliography{bibliography}
+\cite{REF08a}
+
 
 \end{document}

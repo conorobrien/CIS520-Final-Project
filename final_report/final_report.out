@@ -1,9 +1,0 @@
-\BOOKMARK [1][-]{section.1}{Results}{}% 1
-\BOOKMARK [1][-]{section.2}{Analysis}{}% 2
-\BOOKMARK [2][-]{subsection.2.1}{Testing random models}{section.2}% 3
-\BOOKMARK [2][-]{subsection.2.2}{Predict residual}{section.2}% 4
-\BOOKMARK [2][-]{subsection.2.3}{Binning}{section.2}% 5
-\BOOKMARK [2][-]{subsection.2.4}{Cross validation on \043 PCA loadings}{section.2}% 6
-\BOOKMARK [2][-]{subsection.2.5}{Testing on BIGLAB for speed}{section.2}% 7
-\BOOKMARK [2][-]{subsection.2.6}{Reducing Model Size}{section.2}% 8
-\BOOKMARK [1][-]{section.3}{Visualization}{}% 9
