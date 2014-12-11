@@ -16,24 +16,33 @@ words = x_train(:,8:end)';
 
 get_treebagger_splits
 clf;
-scatter3(U(:, 1),U(:, 2), U(:, 3), 'bo');
+
+not_top_city_word = ones(1, size(words, 1));
+for c = 1:numel(top_features)
+    not_top_city_word(top_features{c}) = 0;
+end
+rvec = rand(size(not_top_city_word));
+not_top_city_word(rvec > .99) = 0;
+not_top_city_word = logical(not_top_city_word);
+scatter3(U(not_top_city_word, 1),U(not_top_city_word, 2), U(not_top_city_word, 3), 'b.');
+
 for c = 1:numel(top_features)
     idxs = top_features{c};
     switch c
         case 1
-            marker = 'r*';
+            marker = 'ro';
         case 2
-            marker = 'g*';
+            marker = 'go';
         case 3
-            marker = 'b*';
+            marker = 'bo';
         case 4
-            marker = 'c*';
+            marker = 'co';
         case 5
-            marker = 'y*';
+            marker = 'yo';
         case 6
-            marker = 'm*';
+            marker = 'mo';
         case 7
-            marker = 'k*';
+            marker = 'ko';
         otherwise
             warning('Unexpected City!!')
     end
@@ -43,4 +52,7 @@ for c = 1:numel(top_features)
         scatter3(U(feat, 1),U(feat, 2), U(feat, 3), marker);
     end
 end
-% scatter3(U(:,1),U(:,2), U(:,3));
+xlabel('LSI Component 1', 'FontSize', 24)
+ylabel('LSI Component 2', 'FontSize', 24)
+zlabel('LSI Component 3', 'FontSize', 24)
+title('LSI Projection', 'FontSize', 24)
