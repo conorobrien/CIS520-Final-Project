@@ -5,3 +5,4 @@ PCA w/ Elastic Net by city: 0.8346
 PCA w/ Elastic Net by city, words only: 0.8352
 SVR by city: 3.4867
 SVR by city, words only: 3.1001
+Binning with based prediction, 35 trees: 0.6960

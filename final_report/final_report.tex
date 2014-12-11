@@ -12,6 +12,7 @@
 \usepackage{listings}
 \usepackage[framed]{mcode}
 \usepackage{fullpage}
+\usepackage[colorlinks=true]{hyperref}
 
 \definecolor{lightgray}{gray}{0.5}
 \setlength{\parindent}{0pt}
@@ -40,6 +41,7 @@
 \end{enumerate}
 
 \subsection*{Results}
+\begin{center}
 \begin{tabular}{| l || r |}
 \hline
 \textbf{Methods}									&	\textbf{RMSE}   \\ \hline \hline
@@ -52,6 +54,7 @@ SVR by city: 										&	3.4867 \\ \hline
 SVR by city, words only: 							&	3.1001 \\ \hline
 Binning with base prediction, 35 trees: 			&	0.6960 \\ \hline
 \end{tabular}
+\end{center}
 \section{Analysis}
 
 \subsection{Testing random models}
@@ -90,16 +93,20 @@ By reducing the number of operations, and replacing the find with an logical ind
 Our first saved models were well above the 50MB limit, but we were able to shrink them after trying a few different methods. Initially we thought to try using a compression program, and use system calls to decompress everything during \texttt{init\_model}, but MATLAB already does a good job with compression while saving, and we were unable to get any size reduction. Eventually we switched the cvglmnet model to use single-precision floats rather than double-precision, and were able to strip out much unneeded information from our tree model by turning the TreeBagger object into a CompactTreeBagger object, which omitted everything from the TreeBagger model except the actual trees used for prediction. 
 
 \section{Visualization}
+Figure \ref{WordCloud} is a word cloud showing the most frequent words in the decision trees of the ensemble method mentioned in the first section, with larger font size reflecting higher frequencies. Figure \ref{LSI} shows the distribution of words in the decision tree, broken down by city. The words that best predict the residual from ridge regression are different for each city.
 
-\begin{sidewaysfigure}
+\begin{figure}
 	\centering
-	\caption{Word Cloud from Frequency of Words in Decision Trees}
 	\includegraphics[scale=0.55]{word_cloud.png}
-\end{sidewaysfigure}
+	\caption{Word Cloud from Frequency of Words in Decision Trees}
+	\label{WordCloud}
+\end{figure}
 
-\begin{sidewaysfigure}
+\begin{figure}
 	\centering
-	\includegraphics[scale = 0.35]{LSI_projection.png}
-\end{sidewaysfigure}
+	\includegraphics[scale = 0.30]{LSI_projection.png}
+	\caption{LSI Reduction of Words Used by Decision Trees}
+	\label{LSI}
+\end{figure}
 
 \end{document}
