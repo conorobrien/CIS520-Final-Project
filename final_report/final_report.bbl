@@ -1,0 +1,20 @@
+\begin{thebibliography}{1}
+
+\bibitem{REF08a}
+Rong-En Fan, Kai-Wei Chang, Cho-Jui Hsieh, Xiang-Rui Wang, and Chih-Jen Lin.
+\newblock {LIBLINEAR}: A library for large linear classification.
+\newblock {\em Journal of Machine Learning Research}, 9:1871--1874, 2008.
+
+\bibitem{website:Wordle}
+Jonathan Feinberg.
+\newblock Wordle - beautiful word clouds, December 2014.
+\newblock http://www.wordle.net/.
+
+\bibitem{}
+Jerome Friedman, Trevor Hastie, and Robert Tibshirani.
+\newblock Regularization paths for generalized linear models via coordinate
+  descent.
+\newblock {\em Journal of Statistical Software}, 33(1):1--22, 2010.
+\newblock http://www.jstatsoft.org/v33/i01/.
+
+\end{thebibliography}
